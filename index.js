@@ -56,7 +56,9 @@ const sketch = ({ canvas }) => {
       let mx = curr.x + (next.x - curr.x) * 0.5;
       let my = curr.y + (next.y - curr.y) * 0.5;
 
-      context.quadraticCurveTo(curr.x, curr.y, mx, my);
+      if (i == 0) context.moveTo(curr.x, curr.y);
+      else if (i == points.length - 2) context.quadraticCurveTo(curr.x, curr.y, next.x, next.y);
+      else context.quadraticCurveTo(curr.x, curr.y, mx, my);
       // context.quadraticCurveTo(curr.x, curr.y, mx, my);
     }
 
