@@ -17,7 +17,7 @@ let points;
 const sketch = ({ canvas }) => {
   points = [
     new Point({ x: 200, y: 540 }),
-    new Point({ x: 400, y: 300, control: true }),
+    new Point({ x: 400, y: 700 }),
     new Point({ x: 880, y: 540 }),
     new Point({ x: 600, y: 700 }),
     new Point({ x: 640, y: 900 }),
@@ -30,29 +30,43 @@ const sketch = ({ canvas }) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
+    context.strokeStyle = '#999';
     context.beginPath();
     context.moveTo(points[0].x, points[0].y);
 
-    for (let i=1; i < points.length;i+=2){
-      context.quadraticCurveTo(
-        points[1].x,
-        points[1].y,
-        points[2].x,
-        points[2].y
-      );
-
+    for (let i = 1; i < points.length; i++) {
+      context.lineTo(points[i].x, points[i].y);
     }
-    // context.quadraticCurveTo(
-    //   points[1].x,
-    //   points[1].y,
-    //   points[2].x,
-    //   points[2].y
-    // );
-    // context.stroke();
 
-    // points.forEach((point) => {
-    //   point.draw(context);
-    // });
+    // for (let i = 1; i < points.length; i += 2) {
+    //   context.quadraticCurveTo(
+    //     points[i].x,
+    //     points[i].y,
+    //     points[i + 1].x,
+    //     points[i + 1].y
+    //   );
+    // }
+
+    context.beginPath();
+
+    for (let i = 0; i < points.length - 1; i += 1) {
+      let curr = points[i + 0];
+      let next = points[i + 1];
+
+      let mx = curr.x + (next.x - curr.x) * 0.5;
+      let my = curr.y + (next.y - curr.y) * 0.5;
+
+      context.quadraticCurveTo(curr.x, curr.y, mx, my);
+      // context.quadraticCurveTo(curr.x, curr.y, mx, my);
+    }
+
+    context.lineWidth = 4;
+    context.strokeStyle = 'blue';
+    context.stroke();
+
+    points.forEach((point) => {
+      point.draw(context);
+    });
   };
 };
 
