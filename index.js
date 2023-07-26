@@ -19,6 +19,8 @@ const sketch = ({ canvas }) => {
     new Point({ x: 200, y: 540 }),
     new Point({ x: 400, y: 300, control: true }),
     new Point({ x: 880, y: 540 }),
+    new Point({ x: 600, y: 700 }),
+    new Point({ x: 640, y: 900 }),
   ];
   canvas.addEventListener('mousedown', onMouseDown);
 
@@ -30,17 +32,27 @@ const sketch = ({ canvas }) => {
 
     context.beginPath();
     context.moveTo(points[0].x, points[0].y);
-    context.quadraticCurveTo(
-      points[1].x,
-      points[1].y,
-      points[2].x,
-      points[2].y
-    );
-    context.stroke();
 
-    points.forEach((point) => {
-      point.draw(context);
-    });
+    for (let i=1; i < points.length;i+=2){
+      context.quadraticCurveTo(
+        points[1].x,
+        points[1].y,
+        points[2].x,
+        points[2].y
+      );
+
+    }
+    // context.quadraticCurveTo(
+    //   points[1].x,
+    //   points[1].y,
+    //   points[2].x,
+    //   points[2].y
+    // );
+    // context.stroke();
+
+    // points.forEach((point) => {
+    //   point.draw(context);
+    // });
   };
 };
 
